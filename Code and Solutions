@@ -1,0 +1,85 @@
+#Ques 1
+#Carry out a regression analysis of Weight on Height  
+
+mydata <- read.table("Data.txt", header = T)
+
+#We plot weight on the y-axis since it is the response/predicted variable, and height on the x-axis since it is
+#the explanatory/predictor variable.
+
+
+plot(mydata$Height,mydata$Weight)
+
+#From results there seems to be a linear relationship so we conduct a regression analysis.
+
+weight_height <-lm(Weight ~ Height, data = mydata)
+
+#Before interpreting the model output, we must assess the assumptions of the simple linear regression model.
+
+par(mfrow=c(2,1)) # to set up the graph to allow two plots (2 rows, 1 column)
+plot(weight_height, which=1:2) # which used to select
+
+
+#  From Results we can see that The assumptions are satisfied since there is equal spread about the zero line in the residuals versus fits plot,
+#indicating that there is equal variance and the residuals are independent and identically distributed. Also,
+#the points on the qq plot are close to the line indicating that the residuals are normally distributed.
+
+
+summary(weight_height)
+
+#Equation of regression line: Weight= -2.265 +45.005*Height
+#On average we would expect the weight to increase by 45kg for every 1 metre increase in height.
+#H0: Regression coefficent = 0
+#H1: slope is not 0
+#p-value < 2.2x10-16 < 0.05, reject null hypothesis and conclude there is a significant slope i.e. a significant
+#linear relationship between height and weight.
+#R-sq=73%, 73% of the variation in Weight is being explained by this model (height), which is quite a high
+#Rˆ2 value.
+
+cor(mydata$Weight,mydata$Height)
+## [1] 0.8545385
+cor(mydata$Weight,mydata$Height)^2
+## [1] 0.730236
+
+
+#Ques2
+#Carry out a regression analysis of Blood Pressure on Weight.
+
+#We plot blood pressure (BP) on the y-axis since it is the response/predicted variable, and weight on the
+#x-axis since it is the explanatory/predictor variable.
+dev.off()
+## null device
+## 1
+
+
+plot(mydata$Weight,mydata$Blood_Pressure)
+
+#There seems to be a linear relationship so we conduct a regression analysis.
+
+weight_bp <-lm(Blood_Pressure ~ Weight, data = mydata)
+plot(mydata$Weight,mydata$Blood_Pressure)
+abline(weight_bp,col=2)
+
+plot(mydata$Weight,mydata$Blood_Pressure)
+
+
+#Before interpreting the model output, we must assess the assumptions of the simple linear regression model.
+par(mfrow=c(2,1)) # to set up the graph to allow two
+#plots (2 rows, 1 column)
+plot(weight_bp, which=1:2) # which used to select
+
+
+#The assumptions are satisfied since there is equal spread about the zero line in the residuals versus fits plot,
+#indicating that there is equal variance and the residuals are independent and identically distributed. Also,
+#the points on the qq plot are close to the line indicating that the residuals are normally distributed.
+
+summary(weight_bp)
+
+#Equation of regression line: BP = -37.113 + 2.1499*Weight
+
+#On average we would expect the BP to increase by 2.15 for every 1 kg increase in weight.
+#H0: Regression coefficent = 0
+#H1: slope is not 0
+#p-value < 6.44x10ˆ-12 < 0.05, reject null hypothesis and conclude there is a significant slope i.e. a significant
+#linear relationship between height and weight.
+#R-sq=56%, 56% of the variation inBP is being explained by this model (weight), which means there is still
+#quite a bit of unexplained variation.
